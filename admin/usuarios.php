@@ -1,7 +1,9 @@
 <?php 
 require_once "../inc/cabecalho-admin.php";
+use Microblog\Usuario;
+$objetoUsuario = new Usuario;
+$listaUsuarios = $objetoUsuario->listar();
 ?>
-
 
 <div class="row">
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
@@ -29,23 +31,26 @@ require_once "../inc/cabecalho-admin.php";
 				</thead>
 
 				<tbody>
+					<?php foreach($listaUsuarios as $usuario){ ?>
+						<tr>
+							<td><?=$usuario['nome']?></td>
+							<td><?=$usuario['email']?></td>
+							<td><?=$usuario['tipo']?></td>
+							<td class="text-center">
+								<a class="btn btn-warning" 
+								href="usuario-atualiza.php?id=<?=$usuario['id']?>">
+								<i class="bi bi-pencil"></i> Atualizar
+								</a>
+							
+								<a class="btn btn-danger excluir" 
+								href="usuario-exclui.php?id=<?=$usuario['id']?>">
+								<i class="bi bi-trash"></i> Excluir
+								</a>
+							</td>
+						</tr>
+					<?php } ?>
 
-					<tr>
-						<td> Nome... </td>
-						<td> E-mail... </td>
-						<td> Tipo... </td>
-						<td class="text-center">
-							<a class="btn btn-warning" 
-							href="usuario-atualiza.php">
-							<i class="bi bi-pencil"></i> Atualizar
-							</a>
-						
-							<a class="btn btn-danger excluir" 
-							href="usuario-exclui.php">
-							<i class="bi bi-trash"></i> Excluir
-							</a>
-						</td>
-					</tr>
+					
 
 				</tbody>                
 			</table>
