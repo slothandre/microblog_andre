@@ -35,6 +35,20 @@ class Usuario {
         }
     }
 
+    // Listar os usuários
+    public function listar():array {
+        $sql = "SELECT * FROM usuarios ORDER BY nome";
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->execute();
+            $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $erro) {
+            die("Erro ao exibir: ".$erro->getMessage());
+        }
+        return $resultado;
+    }
+
     /* Métodos para codificação e comparação de senha */
     public function codificaSenha(string $senha):string {
         return password_hash($senha, PASSWORD_DEFAULT);
