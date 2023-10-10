@@ -44,7 +44,7 @@ class Usuario {
             $consulta->execute();
             $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $erro) {
-            die("Erro ao exibir: ".$erro->getMessage());
+            die("Erro ao listar usuários: ".$erro->getMessage());
         }
         return $resultado;
     }
