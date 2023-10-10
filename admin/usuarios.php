@@ -1,6 +1,6 @@
 <?php 
 require_once "../inc/cabecalho-admin.php";
-use Microblog\Usuario;
+use Microblog\{Usuario, Utilitarios};
 $objetoUsuario = new Usuario;
 $listaUsuarios = $objetoUsuario->listar();
 ?>
