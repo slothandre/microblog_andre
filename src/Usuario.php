@@ -35,6 +35,11 @@ class Usuario {
         }
     }
 
+    /* Métodos para codificação e comparação de senha */
+    public function codificaSenha(string $senha):string {
+        return password_hash($senha, PASSWORD_DEFAULT);
+    }
+
     public function getId(): int
     {
         return $this->id;
