@@ -14,10 +14,22 @@ if(isset($_POST['atualizar'])){
 	$usuario->setEmail($_POST['email']);
 	$usuario->setTipo($_POST['tipo']);
 
-	// Senha
-	$usuario->setSenha($_POST['senha']);
+	// Algoritmo geral para tratamento de senha
+	if(empty($_POST['senha'])){
+		// Se a senha estiver vazia é passado o valor da senha vinda do banco (Sem Alteração).
+		$usuario->setSenha($dadosDoUsuario['senha']);
+	} else {
+		// Verificando se a senha digitada é igual a do banco.
+		$usuario->setSenha(
+			$usuario->verifaSenha($_POST['senha'], $dadosDoUsuario['senha'])
+		);
+	}
 
+	// Chamando metodo para atualização
 	$usuario->atualizar();
+
+	// Redirecionamento
+	header('location:usuarios.php');
 }
 ?>
 
