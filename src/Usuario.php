@@ -98,7 +98,7 @@ class Usuario {
         return password_hash($senha, PASSWORD_DEFAULT);
     }
 
-    // Metodo para verificação de senha (password_verify faz a comparação das duas senhas digitada e banco).
+    // Metodo para verificação de senha (password_verify faz a comparação das duas senhas a digitada e do banco).
     public function verificaSenha(string $senhaFormulario, string $senhaBanco): string {
         if(password_verify($senhaFormulario, $senhaBanco)){
             // Se for igual mantemos a senha do banco.
