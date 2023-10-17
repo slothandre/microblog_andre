@@ -98,6 +98,21 @@ class Usuario {
         return password_hash($senha, PASSWORD_DEFAULT);
     }
 
+    /* Método para buscar no banco um usuário através do e-mail */
+    public function buscar():array | bool { // tipos de saída +PHP 7.4
+        $sql = "SELECT * FROM usuarios WHERE email = :email";
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":email", $this->email, PDO::PARAM_STR);
+            $consulta->execute();
+            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+        } catch (Exception $erro) {
+            die("Erro ao buscar usuário: ".$erro->getMessage());
+        }
+        return $resultado;
+    }
+
     // Metodo para verificação de senha (password_verify faz a comparação das duas senhas a digitada e do banco).
     public function verificaSenha(string $senhaFormulario, string $senhaBanco): string {
         if(password_verify($senhaFormulario, $senhaBanco)){
