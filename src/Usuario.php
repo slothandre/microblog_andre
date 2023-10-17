@@ -87,7 +87,7 @@ class Usuario {
     }
 
     // Metodo para verificação de senha (password_verify faz a comparação das duas senhas digitada e banco).
-    public function verifaSenha(string $senhaFormulario, string $senhaBanco): string {
+    public function verificaSenha(string $senhaFormulario, string $senhaBanco): string {
         if(password_verify($senhaFormulario, $senhaBanco)){
             // Se for igual mantemos a senha do banco.
             return $senhaBanco;

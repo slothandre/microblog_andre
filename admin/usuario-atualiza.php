@@ -21,7 +21,7 @@ if(isset($_POST['atualizar'])){
 	} else {
 		// Verificando se a senha digitada é igual a do banco.
 		$usuario->setSenha(
-			$usuario->verifaSenha($_POST['senha'], $dadosDoUsuario['senha'])
+			$usuario->verificaSenha($_POST['senha'], $dadosDoUsuario['senha'])
 		);
 	}
 
