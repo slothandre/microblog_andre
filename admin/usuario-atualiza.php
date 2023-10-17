@@ -1,5 +1,24 @@
 <?php 
+use Microblog\{Usuario, Utilitarios};
 require_once "../inc/cabecalho-admin.php";
+
+// Script de exibição
+$usuario = new Usuario;
+$usuario->setId($_GET['id']);
+$dadosDoUsuario = $usuario->listarUm();
+
+// Script de atualização
+if(isset($_POST['atualizar'])){
+	// Dados ja sanitizados
+	$usuario->setNome($_POST['nome']);
+	$usuario->setEmail($_POST['email']);
+	$usuario->setTipo($_POST['tipo']);
+
+	// Senha
+	$usuario->setSenha($_POST['senha']);
+
+	$usuario->atualizar();
+}
 ?>
 
 
