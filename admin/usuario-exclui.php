@@ -1,7 +1,10 @@
 <?php
 // Require e use do namespace
-use Microblog\{Usuario};
+use Microblog\{Usuario, ControleDeAcesso};
 require_once '../vendor/autoload.php';
+
+$sessao = new ControleDeAcesso;
+$sessao->verificaAcesso();
 
 // Script de exclusão
 $usuario = new Usuario;
