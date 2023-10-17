@@ -1,11 +1,17 @@
 <?php 
-use Microblog\{ControleDeAcesso, Usuario};
+use Microblog\{ControleDeAcesso, Usuario, Utilitarios};
 require_once "inc/cabecalho.php";
 
 /* Programação das mensagens de feedback (campos obrigatórios,
 dados incorretos, saiu do sistema etc) */
 if(isset($_GET['campos_obrigatorios'])){
-	$feedback = "Você deve logar primeiro!";
+	$feedback = "Preencha e-mail e senha!";
+} elseif(isset($_GET['dados_incorretos'])){
+	$feedback = "E-mail ou Senha incorretos!";
+} elseif(isset($_GET['logout'])) {
+	$feedback = "Você saiu do sistema!";
+} elseif(isset($_GET['acesso_proibido'])){
+	$feedback = "Você deve logar primeiro";
 }
 ?>
 
@@ -44,13 +50,25 @@ if(isset($_GET['campos_obrigatorios'])){
 					$usuario->setEmail($_POST['email']);
 
 					// Buscar o usuário/e-mail no Banco de Dados
+					$dados = $usuario->buscar();
 
 					// Se não existir o usuário/e-mail, continuará em login.php
-
-					// Se existir:
+					if(!$dados) { // OU if($dados === false)
+						header("location:login.php?dados_incorretos");
+					} else {
+						// Se existir:
 						// - verificar a senha
-						// - Está correta? Iniciar o processo de login
-						// - Não está? continuará em login.php
+						if(password_verify($_POST['senha'], $dados['senha'])){
+							// - Está correta? Iniciar o processo de login
+							$sessao = new ControleDeAcesso;
+							$sessao->login($dados['id'], $dados['nome'], $dados['tipo']);
+							header("location:admin/index.php");
+						} else {
+							// - Não está? continuará em login.php
+							header("location:login.php?dados_incorretos");
+						}
+					}
+
 				}
 			}
 		?>
