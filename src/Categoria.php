@@ -79,7 +79,7 @@ class Categoria {
         return $this->id;
     }
     public function setId(int $id): self{
-        $this->id = $id;
+        $this->id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
 
         return $this;
     }
@@ -88,7 +88,7 @@ class Categoria {
         return $this->nome;
     }
     public function setNome(string $nome): self{
-        $this->nome = $nome;
+        $this->nome = filter_var($nome, FILTER_SANITIZE_SPECIAL_CHARS);
 
         return $this;
     }
