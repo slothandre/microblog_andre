@@ -1,5 +1,10 @@
 <?php 
+use Microblog\Categoria;
 require_once "../inc/cabecalho-admin.php";
+$sessao->verificaAcessoAdmin();
+
+$objetoCategoria = new Categoria;
+$listaCategorias = $objetoCategoria->ler();
 ?>
 
 
@@ -27,22 +32,22 @@ require_once "../inc/cabecalho-admin.php";
 				</thead>
 
 				<tbody>
-
-					<tr>
-						<td> Nome... </td>
-						<td class="text-center">
-							<a class="btn btn-warning" 
-							href="categoria-atualiza.php">
-							<i class="bi bi-pencil"></i> Atualizar
-							</a>
-						
-							<a class="btn btn-danger excluir" 
-							href="categoria-exclui.php">
-							<i class="bi bi-trash"></i> Excluir
-							</a>
-						</td>
-					</tr>
-
+					<?php foreach($listaCategorias as $categoria){ ?>
+						<tr>
+							<td><?=$categoria['nome']?></td>
+							<td class="text-center">
+								<a class="btn btn-warning" 
+								href="categoria-atualiza.php?id=<?=$categoria['id']?>">
+								<i class="bi bi-pencil"></i> Atualizar
+								</a>
+							
+								<a class="btn btn-danger excluir" 
+								href="categoria-exclui.php?id=<?=$categoria['id']?>">
+								<i class="bi bi-trash"></i> Excluir
+								</a>
+							</td>
+						</tr>
+						<?php } ?>
 				</tbody>                
 			</table>
 	    </div>
