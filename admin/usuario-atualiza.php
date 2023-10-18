@@ -1,6 +1,7 @@
 <?php 
 use Microblog\{Usuario, Utilitarios};
 require_once "../inc/cabecalho-admin.php";
+$sessao->verificaAcessoAdmin();
 
 // Script de exibição
 $usuario = new Usuario;
