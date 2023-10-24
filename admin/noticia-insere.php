@@ -2,8 +2,8 @@
 require_once "../inc/cabecalho-admin.php";
 use Microblog\{Noticia, Utilitarios, Categoria};
 
-$objetoCategoria = new Categoria;
-$listaDeCategorias = $objetoCategoria->ler();
+$noticia = new Noticia;
+$listaDeCategorias = $noticia->categoria->ler();
 ?>
 
 
