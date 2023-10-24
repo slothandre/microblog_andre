@@ -49,6 +49,7 @@ final class Noticia {
             Isso é possível devido à associação entre as Classes. */
             $consulta->bindValue(":usuario_id", $this->usuario->getId(), PDO::PARAM_INT);
             $consulta->bindValue(":categoria_id", $this->categoria->getId(), PDO::PARAM_INT);
+            $consulta->execute();
         } catch (Exception $erro) {
             die("Erro ao inserir: ".$erro->getMessage());
         }
@@ -83,7 +84,7 @@ final class Noticia {
         $temporario = $arquivo['tmp_name'];
 
         // Definindo a pasta de destino das imagens no site
-        $pastaFinal = "../imagens/".$nome;
+        $pastaFinal = "../images/".$nome;
 
         // Movemos/enviamos da área temporária para a fnial/destino
         move_uploaded_file($temporario, $pastaFinal);
