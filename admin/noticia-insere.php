@@ -3,7 +3,7 @@ require_once "../inc/cabecalho-admin.php";
 use Microblog\{Noticia, Utilitarios};
 
 $noticia = new Noticia;
-$listaDeCategorias = $noticia->categoria->ler();
+$listaDeCategorias = $noticia->categoria->listar();
 
 if(isset($_POST['inserir'])) {
 	$noticia->setTitulo($_POST['titulo']);

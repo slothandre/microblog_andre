@@ -5,7 +5,7 @@ $sessao->verificaAcessoAdmin();
 
 $categoria = new Categoria;
 $categoria->setId($_GET['id']);
-$dadosCategoria = $categoria->lerUm();
+$dadosCategoria = $categoria->listarUm();
 
 if(isset($_POST['atualizar'])){
 	$categoria->setNome($_POST['nome']);

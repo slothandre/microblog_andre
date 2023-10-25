@@ -11,7 +11,7 @@ class Categoria {
         $this->conexao = Banco::conecta();
     }
 
-    public function ler():array {
+    public function listar():array {
         $sql = "SELECT * FROM categorias ORDER BY nome";
 
         try {
@@ -24,7 +24,7 @@ class Categoria {
         return $resultado;
     }
 
-    public function lerUm():array {
+    public function listarUm():array {
         $sql = "SELECT * FROM categorias WHERE id = :id";
 
         try {
