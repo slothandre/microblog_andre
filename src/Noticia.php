@@ -55,6 +55,50 @@ final class Noticia {
         }
     }
 
+    public function ler():array {
+        $sql = "SELECT * FROM noticias ORDER BY nome";
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->execute();
+            $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $erro) {
+            die("Erro ao ler noticias: ".$erro->getMessage());
+        }
+        return $resultado;
+    }
+
+    public function listar():array {
+        /* Se o tipo de usuário logado for admin */
+        if($this->usuario->getTipo() === "admin") {
+            // Considere o SQL abaixo (pega tudo de todos)
+            $sql = "SELECT 
+                    noticias.id,
+                    noticias.titulo,
+                    noticias.data,
+                    usuarios.nome AS autor,
+                    noticias.destaque
+                FROM noticias INNER JOIN usuarios
+                ON noticias.usuario_id = usuarios.id
+                ORDER BY data DESC";
+        } else {
+            // Senão, considere o SQL abaixo (pega somente referente ao editor)
+            $sql = "SELECT id, titulo, data, destaque
+                FROM noticias WHERE usuario_id = :usuario_id
+                ORDER BY data DESC";
+        }
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":usuario_id", $this->usuario->getId(), PDO::PARAM_INT);
+            $consulta->execute();
+            $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $erro) {
+            die("Erro ao listar: ".$erro->getMessage());
+        }
+        return $resultado;
+    } // final listar()
+
     /* Método para upload de foto */
     public function upload(array $arquivo):void {
 
