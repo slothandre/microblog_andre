@@ -90,7 +90,10 @@ final class Noticia {
 
         try {
             $consulta = $this->conexao->prepare($sql);
-            $consulta->bindValue(":usuario_id", $this->usuario->getId(), PDO::PARAM_INT);
+
+            /* Somente se NÃO for um admin, trate o parâmetro abaixo */
+            if($this->usuario->getTipo() !== "admin") $consulta->bindValue(":usuario_id", $this->usuario->getId(), PDO::PARAM_INT);
+            
             $consulta->execute();
             $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $erro) {
