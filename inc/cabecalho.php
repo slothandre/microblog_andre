@@ -1,4 +1,10 @@
-<?php require_once "vendor/autoload.php"; ?>
+<?php
+/* Output Buffer (gerenciamento de memória de saída) */
+ob_start();
+require_once "vendor/autoload.php";
+use Microblog\Noticia;
+$noticia = new Noticia
+?>
 <!DOCTYPE html>
 <html lang="pt-br" class="h-100">
 <head>
