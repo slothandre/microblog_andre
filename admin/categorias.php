@@ -4,7 +4,7 @@ require_once "../inc/cabecalho-admin.php";
 $sessao->verificaAcessoAdmin();
 
 $objetoCategoria = new Categoria;
-$listaCategorias = $objetoCategoria->ler();
+$listaCategorias = $objetoCategoria->listar();
 ?>
 
 
