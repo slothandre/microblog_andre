@@ -102,6 +102,20 @@ final class Noticia {
         return $resultado;
     } // final listar()
 
+    // index.php
+    public function listarTodas():array {
+        $sql = "SELECT id, data, titulo, resumo FROM noticias 
+                ORDER BY data DESC";
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->execute();
+            $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $erro) {
+            die("Erro ao carregar notícias: ".$erro->getMessage());
+        }
+        return $resultado;
+    }
+
     public function listarUm():array {
         if($this->usuario->getTipo() === "admin") {
             // Carrega dados de qualquer noticia de qualquer pessoa
