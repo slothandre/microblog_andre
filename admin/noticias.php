@@ -50,13 +50,14 @@ $listaDeNoticias = $noticia->listar();
 								<td><?=$itemNoticia['autor']?></td>
 							<?php } ?>
 
-							<td><?=$itemNoticia['destaque']?></td>
+							<td class="text-center"><?=$itemNoticia['destaque']?></td>
 							<td class="text-center">
 								<a class="btn btn-warning" 
 								href="noticia-atualiza.php?id=<?=$itemNoticia['id']?>">
 								<i class="bi bi-pencil"></i> Atualizar
 								</a>
-							
+							</td>
+							<td>
 								<a class="btn btn-danger excluir" 
 								href="noticia-exclui.php?id=<?=$itemNoticia['id']?>">
 								<i class="bi bi-trash"></i> Excluir
