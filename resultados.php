@@ -1,36 +1,20 @@
 <?php
 
-use Microblog\Utilitarios;
+use Microblog\{Noticia, Utilitarios};
 
-require_once "inc/cabecalho.php";
-$noticia->setTermo($_GET['busca']);
+require_once "vendor/autoload.php";
+$noticia = new Noticia;
+$noticia->setTermo($_POST['busca']);
 $resultados = $noticia->busca();
-?>
+$quantidade = count($resultados);
 
-
-<div class="row bg-white rounded shadow my-1 py-4">
-    <h2 class="col-12 fw-light">
-        Você procurou por <span class="badge bg-dark"><?=$noticia->getTermo()?></span> e
-        obteve <span class="badge bg-info"><?=count($resultados)?></span> resultados
-    </h2>
-    <?php foreach($resultados as $itemNoticia){ ?>
-        <div class="col-12 my-1">
-            <article class="card">
-                <div class="card-body">
-                    <h3 class="fs-4 card-title fw-light"><?=$itemNoticia['titulo']?></h3>
-                    <p class="card-text">
-                        <time><?=Utilitarios::formataData($itemNoticia['data'])?></time> - 
-                        <?=$itemNoticia['resumo']?>
-                    </p>
-                    
-                    <a href="noticia.php?id=<?=$itemNoticia['id']?>" class="btn btn-primary btn-sm">Continuar lendo</a>
-                </div>
-            </article>
-        </div>
-    <?php } ?>
-</div>        
-
-<?php 
-require_once "inc/todas.php";
-require_once "inc/rodape.php";
-?>
+if($quantidade > 0) { ?>
+    <h2 class="fs-5">Resultados: <span><?=$quantidade?></span></h2>
+    <div class="list-group">
+        <?php foreach($resultados as $itemNoticia){ ?>
+            <a class="list-group-item list-group-item-action" href="noticia.php?id=<?=$itemNoticia['id']?>"><?=$itemNoticia['titulo']?></a>
+        <?php } ?>
+    </div>
+<?php } else { ?>
+    <h2 class="fs-5 text-danger">Sem notícias</h2>
+<?php } ?>
